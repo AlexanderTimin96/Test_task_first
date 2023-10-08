@@ -1,14 +1,13 @@
 package ru.tandemservice.checker;
 
-import ru.tandemservice.repository.palindrome.InMemoryRepositoryPalindrome;
 import ru.tandemservice.repository.palindrome.RepositoryPalindrome;
 
 public class PalindromeCheckerImpl implements PalindromeChecker {
 
     private final RepositoryPalindrome repositoryPalindrome;
 
-    public PalindromeCheckerImpl() {
-        this.repositoryPalindrome = new InMemoryRepositoryPalindrome();
+    public PalindromeCheckerImpl(RepositoryPalindrome repositoryPalindrome) {
+        this.repositoryPalindrome = repositoryPalindrome;
     }
 
     @Override

@@ -4,6 +4,7 @@ import ru.tandemservice.checker.PalindromeChecker;
 import ru.tandemservice.checker.PalindromeCheckerImpl;
 import ru.tandemservice.repository.leaders.InMemoryRepositoryLeaders;
 import ru.tandemservice.repository.leaders.RepositoryLeaders;
+import ru.tandemservice.repository.palindrome.InMemoryRepositoryPalindrome;
 
 import java.util.Map;
 import java.util.Scanner;
@@ -17,7 +18,7 @@ public class Game {
 
 
     public Game() {
-        this.palindromeChecker = new PalindromeCheckerImpl();
+        this.palindromeChecker = new PalindromeCheckerImpl(new InMemoryRepositoryPalindrome());
         this.repository = new InMemoryRepositoryLeaders();
     }
 
