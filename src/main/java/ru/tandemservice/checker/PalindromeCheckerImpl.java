@@ -1,16 +1,14 @@
 package ru.tandemservice.checker;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import ru.tandemservice.repository.palindrome.InMemoryRepositoryPalindrome;
+import ru.tandemservice.repository.palindrome.RepositoryPalindrome;
 
 public class PalindromeCheckerImpl implements PalindromeChecker {
 
-    Map<String, Set<String>> enteredPalindrome = new HashMap<>();
+    private final RepositoryPalindrome repositoryPalindrome;
 
     public PalindromeCheckerImpl() {
-        this.enteredPalindrome = new HashMap<>();
+        this.repositoryPalindrome = new InMemoryRepositoryPalindrome();
     }
 
     @Override
@@ -21,43 +19,24 @@ public class PalindromeCheckerImpl implements PalindromeChecker {
             return 0;
         }
 
-        //(Проверка, что строчка состоит не из одних пробелов)
-        str = str.toLowerCase().trim();
+        //(Убираем пробелы между словами если они имеются)
+        str = str.toLowerCase().replace(" ", "");
+
+        //(Проверка, что строчка состояла не из одних пробелов)
         if (str.equals("")) {
             return 0;
         }
 
-        //(Убираем пробелы между словами если они имеются)
-        String[] words = str.split(" ");
-        StringBuilder stringBuilder = new StringBuilder();
-        for (String word : words) {
-            word = word.trim();
-            if (word.equals("")) {
-                continue;
-            }
-            stringBuilder.append(word);
-        }
-
-        //(Получаю строчку без пробелов)
-        String enteredStr = stringBuilder.toString();
+        StringBuilder stringBuilder = new StringBuilder().append(str);
         //(Переворачиваю строчку)
         String reversStr = stringBuilder.reverse().toString();
 
         //(Проверяю одинаковость строчек и считаю количество символов)
-        if (enteredStr.equals(reversStr)) {
+        if (str.equals(reversStr)) {
             //(Проверяю был ли введен уже такой палиндром данным игроком)
-            if (!enteredPalindrome.containsKey(nickname)) {
-                Set<String> palindrome = new HashSet<>();
-                palindrome.add(enteredStr);
-                enteredPalindrome.put(nickname, palindrome);
-            } else {
-                Set<String> palindrome = enteredPalindrome.get(nickname);
-                if (palindrome.contains(enteredStr) || palindrome.contains(reversStr)) {
-                    return 0;
-                }
+            if (repositoryPalindrome.isValidPalindrome(nickname, str)) {
+                return str.length();
             }
-
-            return enteredStr.length();
         }
         return 0;
     }

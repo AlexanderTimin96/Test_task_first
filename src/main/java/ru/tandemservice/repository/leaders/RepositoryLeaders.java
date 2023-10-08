@@ -1,4 +1,4 @@
-package ru.tandemservice.repository;
+package ru.tandemservice.repository.leaders;
 
 import java.util.Map;
 

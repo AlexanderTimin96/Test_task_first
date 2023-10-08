@@ -1,5 +1,6 @@
-package ru.tandemservice.repository;
+package ru.tandemservice.repository.leaders;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -26,11 +27,11 @@ public class InMemoryRepositoryLeaders implements RepositoryLeaders {
         resultTable.put(nickname, resultTable.get(nickname) + points);
     }
 
-    //Получаем отсортированную мапу с ограниченным определенным количеством
+    //Получаем отсортированную мапу с ограниченным определенным количеством и отсортированную
     @Override
     public Map<String, Integer> getLeaderboard(int limit) {
         Map<String, Integer> sortedMap = resultTable.entrySet().stream()
-                .sorted(Map.Entry.comparingByValue())
+                .sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
                 .limit(limit)
                 .collect(Collectors.toMap(
                         Map.Entry::getKey,

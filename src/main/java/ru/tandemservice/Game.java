@@ -2,8 +2,8 @@ package ru.tandemservice;
 
 import ru.tandemservice.checker.PalindromeChecker;
 import ru.tandemservice.checker.PalindromeCheckerImpl;
-import ru.tandemservice.repository.InMemoryRepositoryLeaders;
-import ru.tandemservice.repository.RepositoryLeaders;
+import ru.tandemservice.repository.leaders.InMemoryRepositoryLeaders;
+import ru.tandemservice.repository.leaders.RepositoryLeaders;
 
 import java.util.Map;
 import java.util.Scanner;
@@ -11,9 +11,9 @@ import java.util.Scanner;
 public class Game {
     // здесь я бы использовал DI спринга, чтобы классы были независимы друг от друга, но по заданию
     // нельзя использовать Frameworks
-    PalindromeChecker palindromeChecker;
+    private final PalindromeChecker palindromeChecker;
     //Если в дальнейшем будет использована БД, то просто меняем имплементацию интерфейса в конструкторе
-    RepositoryLeaders repository;
+    private final RepositoryLeaders repository;
 
 
     public Game() {
@@ -46,6 +46,7 @@ public class Game {
 
                 if (str.equals("leaders")) {
                     printLeaderboard(NUMBER_LEADERS);
+                    continue;
                 }
 
                 //(Проверяем ник игрока)
@@ -53,7 +54,7 @@ public class Game {
                 if (words.length < 2 || words[0].trim().length() < 3) {
                     System.out.println("Введены не корректные данный! Пробуй снова!");
                     System.out.println();
-                    break;
+                    continue;
                 }
 
                 //(Находим ник игрока)
