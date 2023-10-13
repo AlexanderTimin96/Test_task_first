@@ -1,5 +1,6 @@
 package ru.tandemservice.checker;
 
+import ru.tandemservice.model.Player;
 import ru.tandemservice.repository.palindrome.RepositoryPalindrome;
 
 public class PalindromeCheckerImpl implements PalindromeChecker {
@@ -11,7 +12,7 @@ public class PalindromeCheckerImpl implements PalindromeChecker {
     }
 
     @Override
-    public int getPoints(String nickname, String str) {
+    public int getPoints(Player player, String str) {
 
         //(Проверка на null)
         if (str == null) {
@@ -33,7 +34,7 @@ public class PalindromeCheckerImpl implements PalindromeChecker {
         //(Проверяю одинаковость строчек и считаю количество символов)
         if (str.equals(reversStr)) {
             //(Проверяю был ли введен уже такой палиндром данным игроком)
-            if (repositoryPalindrome.isValidPalindrome(nickname, str)) {
+            if (repositoryPalindrome.isValidPalindrome(player, str)) {
                 return str.length();
             }
         }

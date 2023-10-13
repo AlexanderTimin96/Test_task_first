@@ -1,17 +1,19 @@
 package ru.tandemservice.repository.players;
 
 import ru.tandemservice.model.Player;
-import ru.tandemservice.model.Points;
 
-import java.util.Map;
-import java.util.Set;
+import java.util.List;
 
 public interface RepositoryPlayers {
-    void setPoints(Player player, int points);
+    boolean isRegistryPlayer(String nickname);
 
-    Set<Player> getAllPlayers();
+    boolean registryPlayer(Player player);
 
-    Map<Player, Points> getPlayersWithoutActivity7Days();
+    List<Player> getAllPlayers();
 
-    Map<Player, Points> getLeaderBoard(int limit);
+    List<Player> getPlayersWithoutActivity7Days();
+
+    Player findPlayerByNickName(String nickname);
+
+    void setActivity(String nickname);
 }

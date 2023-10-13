@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import ru.tandemservice.repository.players.InMemoryRepositoryPlayers;
+import ru.tandemservice.repository.leadersboard.InMemoryRepositoryLeadersBoard;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -13,7 +13,7 @@ import java.util.stream.Stream;
 
 public class InMemoryRepositoryLeadersTest {
 
-    InMemoryRepositoryPlayers repositoryLeaders = new InMemoryRepositoryPlayers();
+    InMemoryRepositoryLeadersBoard repositoryLeaders = new InMemoryRepositoryLeadersBoard();
 
     public static Stream<Arguments> argumentsStream() {
         return Stream.of(
