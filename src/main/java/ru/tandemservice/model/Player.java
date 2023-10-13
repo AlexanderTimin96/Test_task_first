@@ -6,32 +6,28 @@ import java.util.Objects;
 
 public class Player {
     private final String nickname;
-    private final String name;
-    private final String surname;
+    private final String email;
     private LocalDateTime lastActivityDateTime;
     private final LocalDateTime registrationDate;
 
-    public Player(String nickname, String name, String surname) {
+    public Player(String nickname, String email) {
         this.nickname = nickname;
-        this.name = name;
-        this.surname = surname;
+        this.email = email;
+
         this.registrationDate = LocalDateTime.now();
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getSurname() {
-        return surname;
+        this.lastActivityDateTime = LocalDateTime.now();
     }
 
     public LocalDateTime getLastActivityDateTime() {
         return lastActivityDateTime;
     }
 
-    public void setLastActivityDateTime(LocalDateTime lastActivityDateTime) {
-        this.lastActivityDateTime = lastActivityDateTime;
+    public void setLastActivityDateTime() {
+        this.lastActivityDateTime = LocalDateTime.now();
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     public String getNickname() {
@@ -44,8 +40,7 @@ public class Player {
 
     @Override
     public String toString() {
-        return getName() + " "
-                + getSurname() + ": "
+        return getNickname()
                 + "(Последняя активность: "
                 + getLastActivityDateTime().format(DateTimeFormatter.ofPattern("HH:mm:ss yyyy-MM-dd")) + ")";
     }
@@ -55,13 +50,11 @@ public class Player {
         if (this == o) return true;
         if (!(o instanceof Player)) return false;
         Player player = (Player) o;
-        return Objects.equals(getNickname(), player.getNickname())
-                && Objects.equals(getName(), player.getName())
-                && Objects.equals(getSurname(), player.getSurname());
+        return Objects.equals(getNickname(), player.getNickname());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getNickname(), getName(), getSurname());
+        return Objects.hash(getNickname());
     }
 }

@@ -3,21 +3,32 @@ package ru.tandemservice.repository.leadersboard;
 import ru.tandemservice.model.Player;
 import ru.tandemservice.model.Points;
 
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class InMemoryRepositoryLeadersBoard implements RepositoryLeadersBoard {
 
-   private final Map<Player, Points> playersBoard;
+    private final Map<Player, Points> playersBoard;
 
-    public InMemoryRepositoryLeadersBoard() {
+    private static RepositoryLeadersBoard instance;
+
+    //Сделал синглтоном потому что инстанс нужен в некоторых командах
+    public static RepositoryLeadersBoard getInstance() {
+        if (instance == null)
+            instance = new InMemoryRepositoryLeadersBoard();
+        return instance;
+    }
+
+    private InMemoryRepositoryLeadersBoard() {
         this.playersBoard = new HashMap<>();
     }
 
     @Override
     public void setPoints(Player player, int points) {
-
+        if (!playersBoard.containsKey(player)) {
+            playersBoard.put(player, new Points(points));
+            return;
+        }
         Points currPoints = playersBoard.get(player);
         currPoints.setPoints(currPoints.getPoints() + points);
 
