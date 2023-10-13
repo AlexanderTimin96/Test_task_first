@@ -2,8 +2,8 @@ package ru.tandemservice;
 
 import ru.tandemservice.checker.PalindromeChecker;
 import ru.tandemservice.checker.PalindromeCheckerImpl;
-import ru.tandemservice.repository.leaders.InMemoryRepositoryLeaders;
-import ru.tandemservice.repository.leaders.RepositoryLeaders;
+import ru.tandemservice.repository.players.InMemoryRepositoryPlayers;
+import ru.tandemservice.repository.players.RepositoryPlayers;
 import ru.tandemservice.repository.palindrome.InMemoryRepositoryPalindrome;
 
 import java.util.Map;
@@ -14,12 +14,12 @@ public class Game {
     // нельзя использовать Frameworks
     private final PalindromeChecker palindromeChecker;
     //Если в дальнейшем будет использована БД, то просто меняем имплементацию интерфейса в конструкторе
-    private final RepositoryLeaders repository;
+    private final RepositoryPlayers repository;
 
 
     public Game() {
         this.palindromeChecker = new PalindromeCheckerImpl(new InMemoryRepositoryPalindrome());
-        this.repository = new InMemoryRepositoryLeaders();
+        this.repository = new InMemoryRepositoryPlayers();
     }
 
     int NUMBER_LEADERS = 5;
@@ -84,7 +84,7 @@ public class Game {
     }
 
     private void printLeaderboard(int limit) {
-        Map<String, Integer> leaderboard = repository.getLeaderboard(limit);
+        Map<String, Integer> leaderboard = repository.getLeaderBoard(limit);
         System.out.println("Таблица лидеров:");
         leaderboard.forEach((key, value) -> System.out.println(key + " : " + value));
         System.out.println();
